@@ -1,4 +1,4 @@
-# Entry for additiv interview
+# Entry for additiv assignment
 
 
 By Michal Bojkovsky
@@ -8,7 +8,7 @@ By Michal Bojkovsky
 ### Used frameworks / significant packages
 
 - React
-- React-Bootstrap
+- React-Bootstrap (more or less unused)
 - Axios
-- Additional packages added by create-react-app
 - React router
+- Additional packages added by create-react-app
