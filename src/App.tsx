@@ -1,40 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import EmployeeList from "./components/EmployeeList";
-import getAllSubordinates from "./api/Employees";
+import EmployeeList from './components/EmployeeList';
+import { Search } from './components/Search';
+import { Switch, Route, Redirect, Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 const App = () => {
-    const [value, setValue] = useState<string>('');
-    const [employees, setEmployees] = useState<string[] | undefined>(undefined);
-
-    const handleClick = (e: any) => {
-        e.preventDefault();
-        getAllSubordinates(value)
-            .then((data) => setEmployees(data))
-            .catch((err) => console.warn(err));
-    };
-
-    const handleChange = (e: any) => {
-        setValue(e.target.value);
-    };
+    const history = createBrowserHistory();
 
     return (
         <React.Fragment>
-            <h1>
-                Employee Explorer
-            </h1>
-
-            <Form>
-                <Form.Control type="text" placeholder="Enter employee name" value={value} onChange={handleChange}/>
-                <Button variant="primary" type="submit" onClick={handleClick} disabled={!value.length}>
-                    Search
-                </Button>
-                { employees && (
-                    <EmployeeList employees={employees}/>
-                )}
-            </Form>
+            <Router history={history}>
+                <Switch>
+                    <Route path={`/overview/:name`} component={EmployeeList}/>
+                    <Route path={`/search`} component={Search}/>
+                    <Redirect path="/" to="/search"/>
+                </Switch>
+            </Router>
         </React.Fragment>
     )
 };
